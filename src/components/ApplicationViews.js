@@ -12,10 +12,13 @@ import { LocationList } from "./Locations/LocationsList"
 import { AnimalList } from "./animal/AnimalList"
 import { EmployeeForm } from "./Employee/EmployeeForm"
 import { LocationForm } from "./Locations/LocationForm"
+import { AnimalDetail } from "./animal/AnimalDetail"
 
 
 
-
+// dynamic route- : = placeholder for whats coming in
+// what youre looking for
+// (\d+) = symbol to accept any digit and any length of digits
 
 
 
@@ -36,6 +39,9 @@ export const ApplicationViews = () => {
                         </Route>
                         <Route exact path="/animals">
                             <AnimalList />
+                        </Route>
+                        <Route exact path="/animals/detail/:animalId(\d+)">
+                            <AnimalDetail />
                         </Route>
                     </CustomerProvider>
                 </LocationProvider>
