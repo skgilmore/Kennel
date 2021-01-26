@@ -18,7 +18,6 @@ export const LocationForm = () => {
     const [location, setLocations] = useState({
         name: "",
         address: "",
-        locationId: 0,
     });
 
     const history = useHistory();
@@ -57,12 +56,6 @@ export const LocationForm = () => {
     const handleClickSaveLocation = (event) => {
         //   event.preventDefault() //Prevents the browser from submitting the form
 
-        // //    const locationId = employee.locationId
-
-        //   if (locationId === 0) {
-        //     window.alert("Please select a location")
-        //   } else {
-        // this addEmployees function was made in EmployeeProvider
         addLocations(location)
             .then(() => history.push("/locations"))
 
@@ -84,19 +77,7 @@ export const LocationForm = () => {
                 </div>
             </fieldset>
 
-            {/* <fieldset>
-              <div className="form-group">
-                  <label htmlFor="location">Assign to location: </label>
-                  <select defaultValue={employee.locationId} name="locationId" id="locationId" onChange={handleControlledInputChange} className="form-control" >
-                      <option value="0">Select a location</option>
-                      {locations.map(l => (
-                          <option key={l.id} value={l.id}>
-                              {l.name}
-                          </option>
-                      ))}
-                  </select>
-              </div>
-          </fieldset> */}
+        
 
             <button className="btn btn-primary"
                 onClick={handleClickSaveLocation}>
