@@ -41,10 +41,10 @@ export const LocationForm = () => {
         always create a copy, make changes, and then set state.*/
         const newLocation = { ...location }
         let selectedVal = event.target.value
-        // // forms always provide values as strings. But we want to save the ids as numbers. This will cover both customer and location ids
-        if (event.target.id.includes("Id")) {
-            selectedVal = parseInt(selectedVal)
-        }
+    //   event = what user did on page (here it would be start typing)
+    // target = what you are targeting in the form here it is the VALUE element
+    // cause you named it that.
+    
         // /* Animal is an object with properties.
         // Set the property to the new value
         // using object bracket notation. */
@@ -52,14 +52,20 @@ export const LocationForm = () => {
         // update state
         setLocations(newLocation)
     }
+   
 
     const handleClickSaveLocation = (event) => {
         //   event.preventDefault() //Prevents the browser from submitting the form
-
+        const locationAddress = location.address
+        if (locationAddress === "") {
+                window.alert("Please type a Location and an Address")
+              } else {
+                //invoke addAnimal passing animal as an argument.
+                //once complete, change the url and display the animal list
         addLocations(location)
             .then(() => history.push("/locations"))
 
-    }
+    }}
 
     return (
         <form className="locationForm">
@@ -86,3 +92,4 @@ export const LocationForm = () => {
         </form>
     )
 }
+
