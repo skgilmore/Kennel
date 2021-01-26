@@ -61,8 +61,7 @@ export const EmployeeForm = () => {
       if (locationId === 0) {
         window.alert("Please select a location")
       } else {
-        //invoke addAnimal passing animal as an argument.
-        //once complete, change the url and display the animal list
+// this addEmployees function was made in EmployeeProvider
         addEmployees(employee)
         .then(() => history.push("/employees"))
       }
