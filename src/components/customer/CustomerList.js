@@ -15,10 +15,12 @@ export const CustomerList = () => {
         getCustomers()
 
     }, [])
-  
+
 
     return (
-        <div className="customers">
+         <div className="customers">
+
+       
             {console.log("CustomerList: Render", customers)}
             {
                 customers.map(customer => {
@@ -26,6 +28,8 @@ export const CustomerList = () => {
                 })
             }
         </div>
+        
+
     )
 }
 
