@@ -13,7 +13,7 @@ import { AnimalList } from "./animal/AnimalList"
 import { EmployeeForm } from "./Employee/EmployeeForm"
 import { LocationForm } from "./Locations/LocationForm"
 import { AnimalDetail } from "./animal/AnimalDetail"
-
+import { LocationDetail } from "./Locations/LocationDetail"
 
 
 // dynamic route- : = placeholder for whats coming in
@@ -33,32 +33,47 @@ export const ApplicationViews = () => {
             <AnimalProvider>
                 <LocationProvider>
                     <CustomerProvider>
+                        <EmployeeProvider>
+                            <Route exact path="/locations/edit/:locationId(\d+)">
+                                <LocationForm />
+                            </Route>
+                            <Route exact path="/locations/create">
+                                <LocationForm />
+                            </Route>
+                            <Route path="/locations/detail/:locationId(\d+)">
+                                <LocationDetail />
+                            </Route>
 
-                        <Route exact path="/animals/create">
-                            <AnimalForm />
-                        </Route>
-                        <Route path="/animals/edit/:animalId(\d+)">
-                            <AnimalForm />
-                        </Route>
-                        <Route exact path="/animals">
-                            <AnimalList />
-                        </Route>
-                        <Route exact path="/animals/detail/:animalId(\d+)">
-                            <AnimalDetail />
-                        </Route>
+                            <Route exact path="/animals/create">
+                                <AnimalForm />
+                            </Route>
+                            <Route path="/animals/edit/:animalId(\d+)">
+                                <AnimalForm />
+                            </Route>
+                            <Route path="/employees/edit/:employeeId(\d+)">
+                                <EmployeeForm />
+                            </Route>
+                            <Route path="/employees/detail/:employeeId(\d+)">
+                                <EmployeeForm />
+                            </Route>
+
+                            <Route exact path="/animals">
+                                <AnimalList />
+                            </Route>
+                            <Route exact path="/locations">
+                                <LocationList />
+                            </Route>
+
+                            <Route exact path="/animals/detail/:animalId(\d+)">
+                                <AnimalDetail />
+                            </Route>
+                        </EmployeeProvider>
                     </CustomerProvider>
                 </LocationProvider>
             </AnimalProvider>
 
 
             <LocationProvider>
-                <Route exact path="/locations/create">
-                    <LocationForm />
-                </Route>
-
-                <Route exact path="/locations">
-                    <LocationList />
-                </Route>
             </LocationProvider>
 
             <EmployeeProvider>

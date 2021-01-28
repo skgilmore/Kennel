@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { LocationContext } from "../Locations/LocationsProvider"
 import { EmployeeContext } from "../Employee/EmployeeProvider"
 // import { CustomerContext } from "../customer/CustomerProvider"
 import "./Employee.css"
 
 export const EmployeeForm = () => {
-    const { addEmployees } = useContext(EmployeeContext)
-    const { locations, getLocations } = useContext(LocationContext)
+    const { addEmployees, getEmployeeById, updateEmployee } = useContext(EmployeeContext)
+
+    const { locations, getLocations,  } = useContext(LocationContext)
     console.log(locations,"locations gotten?")
     /*
     With React, we do not target the DOM with `document.querySelector()`. Instead, our return (render) reacts to state or props.
@@ -19,19 +20,29 @@ export const EmployeeForm = () => {
       name: "",
       locationId: 0,
     });
-
+    const [isLoading, setIsLoading] = useState(true);
     const history = useHistory();
+    const { employeeId } = useParams();
+
 
     /*
     Reach out to the world and get customers state
     and locations state on initialization, so we can provide their data in the form dropdowns
     */
+    
     useEffect(() => {
-        getLocations()
-        
-       
+      getLocations().then(() => {
+        if (employeeId) {
+          getEmployeeById(employeeId)
+          .then(employee => {
+              setEmployees(employee)
+              setIsLoading(false)
+          })
+        } else {
+          setIsLoading(false)
+        }
+      })
     }, [])
-
  
     //when a field changes, update state. The return will re-render and display based on the values in state
         // NOTE! What's happening in this function can be very difficult to grasp. Read it over many times and ask a lot questions about it.
@@ -53,7 +64,7 @@ export const EmployeeForm = () => {
       setEmployees(newEmployee)
     }
 
-    const handleClickSaveEmployee = (event) => {
+    const handleSaveEmployee = (event) => {
       event.preventDefault() //Prevents the browser from submitting the form
 
       const locationId = employee.locationId
@@ -69,7 +80,8 @@ export const EmployeeForm = () => {
 
     return (
       <form className="employeeForm">
-          <h2 className="employeeForm__title">New Employee</h2>
+          <h2 className="employeeForm__title">
+          {employeeId ? "Edit Employee" : "Add Employee" }</h2>
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Employee name:</label>
@@ -92,9 +104,12 @@ export const EmployeeForm = () => {
           </fieldset>
           
           <button className="btn btn-primary"
-            onClick={handleClickSaveEmployee}>
-            Save Employee
-          </button>
+          disabled={isLoading}
+            onClick={event => {
+              event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+              handleSaveEmployee()
+            }}>
+          {employeeId ? "Save Employee" : "Add Employee" }</button>
       </form>
     )
 }
