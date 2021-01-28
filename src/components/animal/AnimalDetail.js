@@ -6,22 +6,22 @@ import { useParams, useHistory } from "react-router-dom"
 export const AnimalDetail = () => {
   const { getAnimalById, releaseAnimal } = useContext(AnimalContext)
 
-	const [animal, setAnimal] = useState({})
+  const [animal, setAnimal] = useState({})
 
-    const {animalId} = useParams();
-    // how youre accesing the id you are telling application view to go get
+  const { animalId } = useParams();
+  // how youre accesing the id you are telling application view to go get
 
   useEffect(() => {
     console.log("useEffect", animalId)
     getAnimalById(animalId)
-    .then((response) => {
-      setAnimal(response)
-    })
-    }, [])
+      .then((response) => {
+        setAnimal(response)
+      })
+  }, [])
 
-    const history = useHistory()
+  const history = useHistory()
 
-const handleRelease = () => {
+  const handleRelease = () => {
     releaseAnimal(animal.id)
       .then(() => {
         history.push("/animals")
@@ -37,7 +37,10 @@ const handleRelease = () => {
       <div className="animal__location">Location: {animal.location?.name}</div>
       <div className="animal__owner">Customer: {animal.customer?.name}</div>
       <div>
-      <button onClick={handleRelease}>Release Animal</button>
+        <button onClick={handleRelease}>Release Animal</button>
+        <button onClick={() => {
+          history.push(`/animals/edit/${animal.id}`)
+        }}>Edit</button>
       </div>
     </section>
   )
